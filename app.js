@@ -25,6 +25,10 @@ app.get("/journal",(req,res)=>{
     res.render("index/journal.ejs");
 })
 
+app.get("/new",(req,res)=>{
+    res.render("journals/addnew.ejs");
+})
+
 app.listen(port,()=>{
     console.log(`Server is listening on port ${port}`);
 })

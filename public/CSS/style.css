@@ -9,11 +9,12 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    /* overflow: hidden; */
 }
 
 .main-container{
     margin: 0;
-     background-color: #436850;
+    background-color: #436850;
     flex: 1;
 }
 
@@ -89,7 +90,7 @@ footer{
 .home-container{    
     margin: 2rem 7rem;
     color: white;
-    min-height: 150vh;
+    min-height: 100vh;
 }
 
 .card{
@@ -187,4 +188,79 @@ footer{
     height:fit-content;
     background-color: rgba(99, 192, 22, 0.801);
     cursor: pointer;
+}
+
+
+/* addnew */
+.newJournal{
+    min-height: 100vh;
+}
+
+
+.chat-container {
+    max-width: 80%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: -20px auto 0;
+    padding: 20px;
+    background-color:#6ea181;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.chat-heading {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #6ea181;
+    border-radius: 8px 8px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin: 0 auto;
+    /* max-width: 80%; */
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    clear: both;
+}
+.message.sender {
+    align-self: flex-end;
+    float: right;
+    background-color: #4CAF50;
+    color: #fff;
+}
+.message.receiver {
+    align-self: flex-start;
+    float: left;
+    background-color: #f1f0f0;
+    color: #333;
+}
+.message-input {
+    width: calc(100% - 16px);
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.message-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+.btn-send {
+    padding: 8px 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+.btn-send:hover {
+    background-color: #45a049;
 }
