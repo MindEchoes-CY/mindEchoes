@@ -1,0 +1,190 @@
+*{
+    font-family: "Rubik", sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-container{
+    margin: 0;
+     background-color: #436850;
+    flex: 1;
+}
+
+/* Navbar Style  */
+
+.navbar{
+    background-color:#114232;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    padding: 4px !important;
+    
+}
+
+.navbar .navbar-brand {
+    font-size:x-large;
+    padding: 0;
+    /* margin: 0; */
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    opacity: 0.7;
+    transition: all 0.2s;    
+}
+
+.navbar-nav .nav-link:hover{
+    color: white;
+    opacity: 1;
+    width: 100%;
+}
+
+/* footer Style */
+footer{
+    background-color:#114232;
+    bottom: 0;
+    padding: 1rem 4rem;
+
+}
+.footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+}
+
+.f-info{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+.f-item{
+    margin-right: 2rem;
+    color: rgb(255, 255, 255);
+    opacity: 0.7;
+}
+
+.f-item li a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+.f-info ul{
+    list-style:circle;
+}
+
+.f-description p{
+    opacity: 0.7;
+}
+
+/* Home box Style */
+
+.home-container{    
+    margin: 2rem 7rem;
+    color: white;
+    min-height: 150vh;
+}
+
+.card{
+    border: none !important ;
+    border-radius: 15px !important;
+    margin-bottom: 1rem;
+}
+
+.card-body{
+    background-color: #436850be;   
+    height: 180px;
+}
+
+.card .card-btn{
+    border-radius: 25px;
+}
+
+/*  Journaling page  */
+
+.main-box{
+    display: flex;
+    height: 100vh;
+    color: white;
+    justify-content: center;
+}
+
+.side-box{
+    width: 200px;
+}
+
+.journal-box{
+     flex: 1;
+     border: 0.5px solid rgba(245, 245, 245, 0.473);
+     justify-self: center;
+}
+
+.journal-box .inside-box{
+    margin: 1rem 5rem;
+    width: 80%;
+    border-radius: 15px;
+    background-color: #6ea181;
+    padding: 2rem;
+    height:auto;
+    justify-content: center;
+    align-self: center;
+}
+
+
+
+.inside-box .header{
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgb(32, 32, 32) ;
+}
+
+
+/* Side Box   */
+.side-box{
+    background-color: #114232;
+    border: 0.5px solid rgba(245, 245, 245, 0.473);
+}
+
+.side-box .side-card{
+    padding: 1rem 0;
+    font-size: small;
+
+}
+
+.side-card p{
+    text-align: center;
+    opacity: 0.6;
+}
+
+.side-card a{
+    text-decoration: none;
+    color: white;
+    opacity: 0.8;
+}
+
+/* .side-card a:hover{
+    width: 150px;
+    height: 25px;
+    color: rgba(141, 255, 47, 0.801);
+} */
+.side-card .journal-list{
+    padding-left: 1rem;
+}
+.side-card .journal-list:hover{
+    width: auto;
+    margin: auto 0;
+    height:fit-content;
+    background-color: rgba(99, 192, 22, 0.801);
+    cursor: pointer;
+}
