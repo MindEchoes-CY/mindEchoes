@@ -5,6 +5,16 @@
     
 }
 
+:root {
+    --lighter_blue:#e5eff5;
+    --light_blue:#c3d9e3;
+    --blue_overlay:#b5ced7;
+    --dark_blue: #0e7182;
+    --dark_grey:#293535;
+    --white:#fff;
+    --blact: black;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -14,14 +24,14 @@ body{
 
 .main-container{
     margin: 0;
-    background-color: #436850;
+    background-color: var(--light_blue);
     flex: 1;
 }
 
 /* Navbar Style  */
 
 .navbar{
-    background-color:#114232;
+    background-color: var(--lighter_blue);
     display: flex;
     justify-content: space-between;
     font-weight: 500;
@@ -32,24 +42,57 @@ body{
 .navbar .navbar-brand {
     font-size:x-large;
     padding: 0;
+    color: var(--dark_blue);
     /* margin: 0; */
 }
 
-.navbar-nav .nav-link {
-    color: white;
-    opacity: 0.7;
-    transition: all 0.2s;    
+.navbar .navbar-brand:hover{
+    color: var(--dark_blue);
+    transform: scale(1);
 }
 
-.navbar-nav .nav-link:hover{
-    color: white;
-    opacity: 1;
-    width: 100%;
+.navbar-nav .nav-link {
+    color: var(--dark_blue);
+      
 }
+.navbar-nav .nav-link:hover {
+    
+    color: var(--dark_blue);
+    
+}
+
+.navbar .login-btn{
+    background-color: var(--dark_blue);
+    color: var(--lighter_blue);
+    justify-self: center;
+    width: 100px;
+    opacity: 0.9;
+}
+
+.navbar .login-btn:hover{
+    background-color: var(--dark_blue);
+    color: var(--white);
+    opacity: 1 ;
+}
+
+.navbar .signup-btn{
+    background-color: var(--dark_blue);
+    color: var(--lighter_blue);
+    justify-content: center;
+    width: 100px;
+    margin-right: 1rem;
+    opacity: 0.9;
+}
+
+.navbar .signup-btn:hover{
+    background-color: var(--dark_blue);
+    color: var(--white);
+    opacity: 1 ;
+}  
 
 /* footer Style */
 footer{
-    background-color:#114232;
+    background-color: var(--dark_grey);
     bottom: 0;
     padding: 1rem 4rem;
 
@@ -58,7 +101,7 @@ footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    color: white;
+    color: var(--white);
 }
 
 .f-info{
@@ -89,7 +132,7 @@ footer{
 
 .home-container{    
     margin: 2rem 7rem;
-    color: white;
+    color: var(--light_blue);
     min-height: 100vh;
 }
 
@@ -100,12 +143,22 @@ footer{
 }
 
 .card-body{
-    background-color: #436850be;   
+    background-color:var(--blue_overlay);   
     height: 180px;
+    border-radius: 15px;
 }
 
 .card .card-btn{
+    background-color: var(--dark_blue);
+    color: var(--light_blue);
     border-radius: 25px;
+    opacity: 0.9;
+}
+
+.card .card-btn:hover{
+    background-color: var(--dark_blue);
+    color: var(--light_blue);
+    opacity: 1;
 }
 
 /*  Journaling page  */
@@ -113,17 +166,18 @@ footer{
 .main-box{
     display: flex;
     height: 100vh;
-    color: white;
+    color: var(--dark_blue);
     justify-content: center;
 }
 
 .side-box{
     width: 200px;
+ 
 }
 
 .journal-box{
      flex: 1;
-     border: 0.5px solid rgba(245, 245, 245, 0.473);
+     /* border: 0.5px solid var(--dark_blue); */
      justify-self: center;
 }
 
@@ -131,7 +185,7 @@ footer{
     margin: 1rem 5rem;
     width: 80%;
     border-radius: 15px;
-    background-color: #6ea181;
+    background-color: var(--blue_overlay);
     padding: 2rem;
     height:auto;
     justify-content: center;
@@ -149,12 +203,27 @@ footer{
     margin-bottom: 1rem;
     border-bottom: 1px solid rgb(32, 32, 32) ;
 }
+.journal-box .buttons{
+    display: flex;
+    justify-content: space-between;
+}
 
+.journal-box .journal-btn{
+    background-color: var(--dark_blue);
+    color: var(--light_blue);
+    border-radius: 25px;
+    opacity: 0.9;
+}
+.journal-box .journal-btn:hover{
+    background-color: var(--dark_blue);
+    color: var(--light_blue);
+    opacity: 1;
+}
 
-/* Side Box   */
+/* Side Box  
 .side-box{
-    background-color: #114232;
-    border: 0.5px solid rgba(245, 245, 245, 0.473);
+    background-color: var(--lighter_blue);
+    border: 0.5px solid var(--dark_blue);
 }
 
 .side-box .side-card{
@@ -170,8 +239,11 @@ footer{
 
 .side-card a{
     text-decoration: none;
-    color: white;
+    color: var(--dark_blue);
     opacity: 0.8;
+}
+.side-card a:hover{
+    color: var(--light_blue);
 }
 
 /* .side-card a:hover{
@@ -179,16 +251,18 @@ footer{
     height: 25px;
     color: rgba(141, 255, 47, 0.801);
 } */
-.side-card .journal-list{
+/* .side-card .journal-list{
     padding-left: 1rem;
+    border: 0.5px solid var(--dark_blue);
 }
 .side-card .journal-list:hover{
     width: auto;
     margin: auto 0;
     height:fit-content;
-    background-color: rgba(99, 192, 22, 0.801);
+
+    background-color: var(--dark_blue);
     cursor: pointer;
-}
+}  */
 
 
 /* addnew */
@@ -205,7 +279,7 @@ footer{
     justify-content: flex-end;
     margin: -20px auto 0;
     padding: 20px;
-    background-color:#6ea181;
+    background-color:var(--blue_overlay);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
@@ -214,7 +288,7 @@ footer{
 .chat-heading {
     text-align: center;
     padding: 10px 0;
-    background-color: #6ea181;
+    background-color: var(--dark_blue);
     border-radius: 8px 8px 0 0;
     position: sticky;
     top: 0;
@@ -232,13 +306,13 @@ footer{
 .message.sender {
     align-self: flex-end;
     float: right;
-    background-color: #4CAF50;
+    background-color: var(--lighter_blue);
     color: #fff;
 }
 .message.receiver {
     align-self: flex-start;
     float: left;
-    background-color: #f1f0f0;
+    background-color: var(--dark_blue);
     color: #333;
 }
 .message-input {
@@ -250,17 +324,112 @@ footer{
 }
 .message-input:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: var(--dark_blue);
 }
 .btn-send {
     padding: 8px 16px;
     border: none;
-    background-color: #4CAF50;
+    background-color: var(--dark_grey);
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 4px;
 }
 .btn-send:hover {
-    background-color: #45a049;
+    background-color: var(--blact);
 }
+
+/* new Form */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--blue_overlay);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--dark_blue);
+  }
+  
+  .form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container label {
+    margin-bottom: 5px;
+  }
+  
+  .form-container input, textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--light_blue);
+    color: var(--dark_blue);
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .form-container textarea {
+    resize: vertical; /* Allow vertical resizing of textarea */
+  }
+
+  .form-btn{
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+  }
+  
+ 
+  /* show page */
+  .show-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--light_blue);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+ .show-container h1 {
+    text-align: center;
+    color: var(--dark_blue);
+  }
+  
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .show-card {
+    height: 200px;
+    text-align: center;
+    color: var(--dark_blue);
+    padding: 20px;
+    background-color:var(--blue_overlay);
+    border-radius: 15px;
+  }
+  
+  .buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: end;
+  }
+
+  /* Scroll bar css */
+  .show-card {
+  
+    scrollbar-width:thin; 
+    scrollbar-color: var(--dark_blue) var(--blue_overlay);   
+
+  }
+  
+  
+
+
+  

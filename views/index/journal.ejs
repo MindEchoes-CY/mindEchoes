@@ -1,8 +1,8 @@
 <%  layout("/layouts/boilerplate") %>
 
-<body>
-    <div class="main-box">
-        <div class="side-box">
+<body >
+    <div class="main-box row">
+        <!-- <div class="side-box">
             <div class="side-card">
                 <p>date</p>
                 <div class="journal-list">
@@ -25,23 +25,26 @@
                 <span>date</span> </a>
             </div>
             </div>
-        </div>
-        <div class="journal-box ">
+        </div> -->
+        <div class="journal-box col-8 ">
             <div class="inside-box">
                 <div class="header">
-                    <h5>Title</h5>  
-                    <p>date</p> 
+                    <h5><%= journal.title %></h5>  
                 </div>
                 <div class="description-box">
                     <h5>Reflection Guide</h5>
-                    <p>Yur go-to for deep talks and self-discovery. Think of a journaling buddy who's all about understanding your inner world.</p>
+                    <p><%= journal.message %></p>
+                    <div class="buttons">
 
-                    <a class="btn btn-success journal-btn" href=""><i class="fa-solid fa-feather"></i> Continue Writing</a>
+                        <a class="btn journal-btn"  href="/myJournals/<%= journal._id %>/edit"><i class="fa-solid fa-feather"></i> Continue Writing</a>
+                        <a class=" btn journal-btn" href="/journal/new">Add New+</a>
+                    </div>
                 </div>
             </div>
-
+          
+               
+                
         </div>
         
-
 </div>
 </body>
