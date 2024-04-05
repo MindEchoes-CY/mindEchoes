@@ -107,7 +107,7 @@ app.get("/home",(req,res)=>{
 })
 
 app.get("/",(req,res)=>{
-    res.send("Page Coming Soon!");
+    res.render("index.ejs");
 })
 
 app.get("/journal",async(req,res)=>{

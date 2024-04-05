@@ -1,0 +1,35 @@
+.front-page{
+    min-height: 150vh;
+}
+
+.sec-1 h1{
+    font-size: xx-large;
+    font-weight: 600;
+    margin-top: 3rem;
+}
+
+.sec-1 h1 span{
+    color: rgb(61, 122, 139);
+}
+
+.sec-1 .options {
+    margin: 2rem 2rem;
+    display: flex;
+    justify-content: center; 
+}
+
+.sec-1 .options ul {
+    list-style: none;
+}
+
+.review{
+    
+    text-align: center;
+    margin: 2rem 0;
+}
+.review  .profile-pic {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
