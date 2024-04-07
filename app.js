@@ -14,10 +14,17 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-
+const authRoutes = require("./routes/auth-routes");
+// const cookieSession = require('cookie-session');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
+// app.use(cookieSession({
+//     maxAge: 24*60*60*1000,
+//     keys:["sfgfgdfgsdgdsf"]
+// }));
+
+
 app.use(express.urlencoded({extended:true}));
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,'public')));
@@ -193,24 +200,10 @@ app.post("/signup",async (req,res)=>{
     }
 })
 
-app.get("/login",(req,res)=>{
-    res.render("user/login.ejs");
-})
+app.use("/auth",authRoutes);
 
-app.post("/login",passport.authenticate("local",{failureRedirect:"/login"}),(req,res)=>{
-    req.flash("success","Welcome to MindEchoes");
-    res.redirect("/home");
-})
 
-app.get("/logout",(req,res)=>{
-    req.logOut((err)=>{
-        if(err) {
-            return next(err);
-        }
-        req.flash("success","Logged you out");
-        res.redirect("/");
-    })
-})
+
 
 app.all("*",(req,res,next)=>{
     res.send("Page Not Found 404!");
