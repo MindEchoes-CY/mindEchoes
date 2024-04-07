@@ -72,22 +72,16 @@ async function main() {
   }); 
 }
 
-// const firstJournal = new Journal(
-//     {title:"Morning Affirmation",message:"Hello buddy"},
-// );
 
-// firstJournal.save();
-
-// console.log(firstJournal);
-
-// const fakeUser = new User({
-//     email:"fakeuser@gmail.com",
-//     username:"fakeDemo",
-
-
-// })
-
-// User.register(fakeUser,"fakeuser");
+let isLoggedin = (req,res,next)=>{
+    
+    if(!req.isAuthenticated()){
+        req.session.requiredUrl = req.originalUrl;
+        req.flash("error","You must be logged in")
+       return res.redirect("/login");
+      }
+      next();
+}
 
 
 
@@ -99,10 +93,7 @@ async function main() {
 
 
 
-
-
-
-app.get("/home",(req,res)=>{
+app.get("/home",isLoggedin,(req,res)=>{
     res.render("index/home.ejs",{FormattedDate1});
 })
 
@@ -182,16 +173,24 @@ app.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
 })
 
-app.post("/signup",(req,res)=>{
-    let {email,username,password} = req.body;
-    const newUser = User({
-        email:email,
-        username:username,
-    })
-    console.log(newUser);
-    User.register(newUser,password);
-    req.flash("success","Welcome to MindEchoes");
-    res.redirect("/home");
+app.post("/signup",async (req,res)=>{
+    try{
+        let{username,email,password} = req.body;
+        const newUser = new User({email,username});
+        const registeredUser = await User.register(newUser,password);
+        console.log(registeredUser);
+        req.login(registeredUser,(err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success","welcome to MindEchoes");
+        res.redirect("/home");
+       })
+       
+    } catch(e){
+        req.flash("error",e.message);
+        res.redirect("/signup");
+    }
 })
 
 app.get("/login",(req,res)=>{
@@ -209,7 +208,7 @@ app.get("/logout",(req,res)=>{
             return next(err);
         }
         req.flash("success","Logged you out");
-        res.redirect("/home");
+        res.redirect("/");
     })
 })
 

@@ -1,7 +1,7 @@
 <%  layout("/layouts/boilerplate") %>
 
 <body >
-    <div class="main-box row">
+    <div class="main-box container ">
         <!-- <div class="side-box">
             <div class="side-card">
                 <p>date</p>
@@ -26,17 +26,18 @@
             </div>
             </div>
         </div> -->
-        <div class="journal-box col-8 ">
+        <div class="journal-box col-10 ">
             <div class="inside-box">
                 <div class="header">
-                    <h5><%= journal.title %></h5>  
+                    <h5>Start writing your thoughts</h5>  
                 </div>
                 <div class="description-box">
                     <h5>Reflection Guide</h5>
-                    <p><%= journal.message %></p>
+                    <p>
+                        Writing a journal involves regularly recording your thoughts, feelings, and experiences in a written format. Journals can serve various purposes, such as self-reflection, emotional processing, goal tracking, and memory preservation.</p>
                     <div class="buttons">
 
-                        <a class="btn journal-btn"  href="/myJournals/<%= journal._id %>/edit"><i class="fa-solid fa-feather"></i> Continue Writing</a>
+                     
                         <a class=" btn journal-btn" href="/journal/new">Add New+</a>
                     </div>
                 </div>

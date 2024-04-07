@@ -137,9 +137,9 @@ footer{
 /* Home box Style */
 
 .home-container{    
-    margin: 2rem 7rem;
+    margin: 1rem 7rem;
     color: var(--light_blue);
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 
 .card{
@@ -171,7 +171,6 @@ footer{
 
 .main-box{
     display: flex;
-    height: 100vh;
     color: var(--dark_blue);
     justify-content: center;
 }
