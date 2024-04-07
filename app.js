@@ -15,6 +15,7 @@ const flash = require("connect-flash");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const authRoutes = require("./routes/auth-routes");
+const CryptoJs = require("crypto-js");
 // const cookieSession = require('cookie-session');
 
 app.set("view engine", "ejs");
@@ -23,7 +24,7 @@ app.set("views", path.join(__dirname,"views"));
 //     maxAge: 24*60*60*1000,
 //     keys:["sfgfgdfgsdgdsf"]
 // }));
-
+const key = process.env.ENC_DEC_KEY;
 
 app.use(express.urlencoded({extended:true}));
 app.engine('ejs',ejsMate);
@@ -123,7 +124,9 @@ app.get("/journal/new",(req,res)=>{
 app.post("/journal/new",async(req,res)=>{
     try{
         let{title,message} = req.body;
-        const newJournal = new Journal({title:title,message:message});
+        const encryptedTitle = CryptoJs.AES.encrypt(title,key).toString();
+        const encryptedMess = CryptoJs.AES.encrypt(message,key).toString();
+        const newJournal = new Journal({title:encryptedTitle,message:encryptedMess});
     
         newJournal.owner = res.locals.currUser._id;
         console.log(newJournal);
@@ -137,30 +140,69 @@ app.post("/journal/new",async(req,res)=>{
 })
 
 app.get("/myJournals", async (req,res)=>{
-    try{
-        const id = res.locals.currUser._id;
-        
-        const allJournals = await Journal.find({owner:id});
-        console.log(allJournals);
-        res.render("journals/show.ejs",{allJournals});
-    }catch(err){
-        req.flash("error","Get Logged In first")
-        res.redirect("/home");
-    }
+   
+try {
+    const id = res.locals.currUser._id;
+    const allJournals = await Journal.find({ owner: id });
+
+      // Decrypt titles and messages in allJournals
+      const decryptedJournals = allJournals.map(journal => {
+        const decryptedJournal = { ...journal };
+
+        // Decrypt title
+        const titleBytes = CryptoJs.AES.decrypt(journal.title, key);
+        decryptedJournal.title = titleBytes.toString(CryptoJs.enc.Utf8);
+
+        // Decrypt message
+        const messageBytes = CryptoJs.AES.decrypt(journal.message, key);
+        decryptedJournal.message = messageBytes.toString(CryptoJs.enc.Utf8);
+
+        decryptedJournal._id = journal._id;
+
+        return decryptedJournal;
+    });
+
+    console.log(decryptedJournals);
+    res.render("journals/show.ejs", {decryptedJournals});
+
+} catch (err) {
+    console.log(err);
+    res.redirect("/home");
+}
 })
 
 app.get("/myJournals/:id/edit", async(req,res)=>{
-    let{id} = req.params;
-    let journal = await Journal.findById(id);
-    res.render("journals/edit.ejs",{journal});
+    try {
+        let { id } = req.params;
+        let journal = await Journal.findById(id);
+    
+        // Decrypt title
+        const titleBytes = CryptoJs.AES.decrypt(journal.title, key);
+        const decryptedTitle = titleBytes.toString(CryptoJs.enc.Utf8);
+    
+        // Decrypt message
+        const messageBytes = CryptoJs.AES.decrypt(journal.message,key);
+        const decryptedMessage = messageBytes.toString(CryptoJs.enc.Utf8);
+    
+        journal.title = decryptedTitle;
+        journal.message = decryptedMessage;
+        console.log(journal);
+    
+        res.render("journals/edit.ejs", { journal });
+    } catch (err) {
+        req.flash("error", "Get Logged In first");
+        res.redirect("/home");
+    }
    
 })
 
 app.put("/myJournals/:id/update", async(req,res)=>{
     let {id} = req.params;
     let{title,message} = req.body;
+    const encryptedTitle = CryptoJs.AES.encrypt(title,key).toString();
+     const encryptedMess = CryptoJs.AES.encrypt(message,key).toString();
 
-    let updatedJournal = await Journal.findByIdAndUpdate(id,{title:title,message:message});
+    let updatedJournal = await Journal.findByIdAndUpdate(id,{title:encryptedTitle,message:encryptedMess});
 
     await updatedJournal.save();
     res.redirect("/myJournals");
@@ -170,7 +212,7 @@ app.delete("/myJournals/:id", async(req,res)=>{
     let {id} = req.params;
     let deletedJournal = await Journal.findByIdAndDelete(id);
     console.log(deletedJournal);
-    res.redirect("/myJournals")
+    res.redirect("/myJournals");
 })
 
 
