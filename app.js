@@ -10,12 +10,14 @@ const mongoose = require('mongoose');
 const Journal =require("./models/journals");
 const methodOverride = require('method-override')
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const flash = require("connect-flash");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const authRoutes = require("./routes/auth-routes");
 const CryptoJs = require("crypto-js");
+const wrapAsync = require("./utils/wrapAsync")
 // const cookieSession = require('cookie-session');
 
 app.set("view engine", "ejs");
@@ -34,12 +36,20 @@ app.use(flash());
 const moment = require('moment');
 const FormattedDate1 = moment().format('dddd, MMM D');
 const port = 3000;
-
 const dbUrl =process.env.ATLASDB_URL ;
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto:{
+        secret: process.env.SECRET,
+        touchAfter: 24*3600,
+    }
+});
+
 
 
 const sessionOptions = {
-    
+    store,
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
@@ -85,8 +95,7 @@ let isLoggedin = (req,res,next)=>{
     
     if(!req.isAuthenticated()){
         req.session.requiredUrl = req.originalUrl;
-        req.flash("error","You must be logged in")
-       return res.redirect("/login");
+       return res.redirect("/auth/login");
       }
       next();
 }
@@ -109,19 +118,19 @@ app.get("/",(req,res)=>{
     res.render("index.ejs");
 })
 
-app.get("/journal",async(req,res)=>{
+app.get("/journal",wrapAsync( async(req,res)=>{
 
     const journal = await Journal.findOne().sort({ "datetime": 1 });
     console.log(journal);
 
     res.render("index/journal.ejs",{journal});
-})
+}))
 
-app.get("/journal/new",(req,res)=>{
+app.get("/journal/new",isLoggedin,(req,res)=>{
     res.render("journals/newForm.ejs");
 })
 
-app.post("/journal/new",async(req,res)=>{
+app.post("/journal/new",wrapAsync(async(req,res)=>{
     try{
         let{title,message} = req.body;
         const encryptedTitle = CryptoJs.AES.encrypt(title,key).toString();
@@ -131,15 +140,16 @@ app.post("/journal/new",async(req,res)=>{
         newJournal.owner = res.locals.currUser._id;
         console.log(newJournal);
         await newJournal.save();
+        req.flash("success","Your journal entry has been added successfully!");
         res.redirect("/home"); 
     }catch(err){
-        req.flash("error","Get Logged In First");
+        req.flash("error","Some error occured please try again later!");
         res.redirect("/home");
     }
      
-})
+}))
 
-app.get("/myJournals", async (req,res)=>{
+app.get("/myJournals",isLoggedin, wrapAsync(async (req,res)=>{
    
 try {
     const id = res.locals.currUser._id;
@@ -169,9 +179,9 @@ try {
     console.log(err);
     res.redirect("/home");
 }
-})
+}))
 
-app.get("/myJournals/:id/edit", async(req,res)=>{
+app.get("/myJournals/:id/edit",isLoggedin, wrapAsync(async(req,res)=>{
     try {
         let { id } = req.params;
         let journal = await Journal.findById(id);
@@ -194,9 +204,9 @@ app.get("/myJournals/:id/edit", async(req,res)=>{
         res.redirect("/home");
     }
    
-})
+}))
 
-app.put("/myJournals/:id/update", async(req,res)=>{
+app.put("/myJournals/:id/update",wrapAsync( async(req,res)=>{
     let {id} = req.params;
     let{title,message} = req.body;
     const encryptedTitle = CryptoJs.AES.encrypt(title,key).toString();
@@ -206,14 +216,14 @@ app.put("/myJournals/:id/update", async(req,res)=>{
 
     await updatedJournal.save();
     res.redirect("/myJournals");
-})
+}))
 
-app.delete("/myJournals/:id", async(req,res)=>{
+app.delete("/myJournals/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let deletedJournal = await Journal.findByIdAndDelete(id);
     console.log(deletedJournal);
     res.redirect("/myJournals");
-})
+}))
 
 
 // authentication routes
@@ -222,7 +232,7 @@ app.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
 })
 
-app.post("/signup",async (req,res)=>{
+app.post("/signup",wrapAsync(async (req,res)=>{
     try{
         let{username,email,password} = req.body;
         const newUser = new User({email,username});
@@ -240,7 +250,7 @@ app.post("/signup",async (req,res)=>{
         req.flash("error",e.message);
         res.redirect("/signup");
     }
-})
+}))
 
 app.use("/auth",authRoutes);
 
