@@ -4,9 +4,10 @@ const app = express();
 app.use(express.json()) 
 
 const openai = new OpenAI({
-    apiKey:"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"
+  // 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
+    apiKey:""
 })
-// const apiKey = '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'; // Your GPT-3.5-turbo API key
+
 
 
 
