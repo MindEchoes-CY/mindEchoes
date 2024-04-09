@@ -20,6 +20,10 @@ const CryptoJs = require("crypto-js");
 const wrapAsync = require("./utils/wrapAsync")
 // const cookieSession = require('cookie-session');
 
+const bodyParser = require('body-parser');
+const chatgpt = require('./chatgpt');
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
 // app.use(cookieSession({
@@ -33,6 +37,8 @@ app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,'public')));
 app.use(methodOverride("_method"));
 app.use(flash());
+app.use(bodyParser.json());
+
 const moment = require('moment');
 const FormattedDate1 = moment().format('dddd, MMM D');
 const port = 3000;
@@ -254,7 +260,44 @@ app.post("/signup",wrapAsync(async (req,res)=>{
 
 app.use("/auth",authRoutes);
 
+// chat routes
 
+
+app.get("/aichat",async(req,res)=>{
+     let user = res.locals.currUser.username;
+    const message = await chatgpt.generateResponse(`Say hi to ${user} and from now you are jourling assistant of user`);
+   
+
+    res.render("./AiChat/chat.ejs",{ initialMessage: message } );
+})
+
+app.post('/send-message', async (req, res) => {
+    const userMessage = req.body.message;
+    console.log(userMessage);
+    // Process the user message here and generate a response
+    const chatbotResponse = await chatgpt.generateResponse(userMessage);
+    console.log(chatbotResponse);
+    res.json({ message: chatbotResponse });
+});
+
+app.use(bodyParser.json());
+
+app.get('/send-message', async (req, res) => {
+  // Initial message from the bot
+  const message = await chatgpt.generateResponse('say hi to user and from now you are journaling ');
+  res.render({ message });
+});
+
+app.post('/send-message', async (req, res) => {
+  const userMessage = req.body.message;
+  // Save user message to MongoDB
+//   const chatMessage = new ChatMessage({ message: userMessage });
+//   await chatMessage.save();
+
+  // Get response from ChatGPT based on user message
+  const botResponse = await chatgpt.generateResponse(userMessage);
+  res.send({ message: botResponse });
+});
 
 
 app.all("*",(req,res,next)=>{
