@@ -8,10 +8,10 @@
         <div class="text-center w-100">
             <ul class="navbar-nav justify-content-center">
                 <li class="nav-item ">
-                  <a class="nav-link" href="/home">HOME</a>
+                  <a class="nav-link active" href="/home">HOME</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/aichat">JOURNAL</a>
+                  <a class="nav-link" href="/journal">JOURNAL</a>
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="/journal/new">Add New JOURNAL</a>
@@ -22,17 +22,9 @@
               </ul>
           
         </div>
-        <!-- <% if(!currUser){ %>
-        <div class="text-center">
-          <a href="/signup" class="btn  signup-btn text-center ">SignUp <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        </div>
-        <div class="text-center">
-          <a href="/login" class="btn login-btn text-center ">Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        </div>
-        <% } %> -->
         <% if(currUser){ %>
           <div class="text-center">
-            <a href="/auth/logout" class="btn login-btn text-center ">logout <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="/auth/logout" class="btn btn-success " style="width: 100px;">logout <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
 
         <% } %>

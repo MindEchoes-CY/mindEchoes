@@ -9,14 +9,20 @@
     
    
 
-
-    --lighter_blue:#e5eff5;
-    --light_blue:#c3d9e3;
-    --blue_overlay:#b5ced7;
-    --dark_blue: #0e7182;
-    --dark_grey:#293535;
+/* 
+    --lighter_blue:#171918;
+    --light_blue:#1b1d1c;
+    --blue_overlay:#24272b;
+    --dark_blue: white;
+    --dark_grey:white
     --white:#fff;
-    --blact: black;
+    --blact: black; */
+
+    --dark_black:  #171918    ;
+    --dark_grey: #1b1d1c     ;
+    --overlay_grey:  #24272b     ;
+    --button_green:  #47a759   ;
+    --text-white:   #dbdcdc    ;
 
 
 }
@@ -30,14 +36,14 @@ body{
 
 .main-container{
     margin: 0;
-    background-color: var(--light_blue);
+    background-color: var(--dark_grey);
     flex: 1;
 }
 
 /* Navbar Style  */
 
 .navbar{
-    background-color: var(--lighter_blue);
+    background-color: var(--dark_black);
     display: flex;
     justify-content: space-between;
     font-weight: 500;
@@ -48,60 +54,66 @@ body{
 .navbar .navbar-brand {
     font-size:x-large;
     padding: 0;
-    color: var(--dark_blue);
+    color: var(--text-white);
     /* margin: 0; */
 }
 
 .navbar .navbar-brand:hover{
-    color: var(--dark_blue);
+    color: var(--text-white);
     transform: scale(1);
 }
 
 .navbar-nav .nav-link {
-    color: var(--dark_blue);
+    color: var(--text-white);
+    opacity: 0.8;
       
 }
 .navbar-nav .nav-link:hover {
-    
-    color: var(--dark_blue);
+    opacity: 1;
+    color: var(--text-white);
     
 }
 
 .navbar .login-btn{
-    background-color: var(--dark_blue);
-    color: var(--lighter_blue);
+    background-color: var(--button_green);
+    color: var(--text-white);
     justify-self: center;
     width: 100px;
     opacity: 0.9;
 }
 
 .navbar .login-btn:hover{
-    background-color: var(--dark_blue);
-    color: var(--white);
+    background-color: var(--button_green);
+    color: var(--white) !important;
     opacity: 1 ;
 }
 
-.navbar .signup-btn{
-    background-color: var(--dark_blue);
-    color: var(--lighter_blue);
-    justify-content: center;
-    width: 100px;
-    margin-right: 1rem;
-    opacity: 0.9;
-}
-
-.navbar .signup-btn:hover{
-    background-color: var(--dark_blue);
-    color: var(--white);
-    opacity: 1 ;
-}  
 
 /* footer Style */
 footer{
     background-color: var(--dark_grey);
     bottom: 0;
     padding: 1rem 4rem;
+}
 
+.f-main{
+    background-color: var(--dark_grey);
+    bottom: 0;  
+}
+.footer1{
+    background-color: var(--dark_black);
+    color: var(--button_green);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+.footer1 p{
+    font-size:medium;
+    font-weight: 500;
+    padding: 0.5rem;
+    margin: 0 !important;
+    
 }
 .footer{
     display: flex;
@@ -137,100 +149,98 @@ footer{
 /* Home box Style */
 
 .home-container{    
-    margin: 1rem 7rem;
-    color: var(--light_blue);
+    margin: 1rem 0;
+    color: var(--text-white);
     /* min-height: 100vh; */
 }
 
 .card{
-    border: none !important ;
+    border: none !important;
     border-radius: 15px !important;
     margin-bottom: 1rem;
+    background-color: var(--overlay_grey) !important;
+
 }
 
 .card-body{
-    background-color:var(--blue_overlay);   
-    height: 180px;
+    background-color:var(--overlay_grey);   
+    height: auto;
     border-radius: 15px;
+    color: var(--text-white) !important;
+    
+}
+
+.card-body .card-text{
+    opacity: 0.7;
+    font-size: smaller;
 }
 
 .card .card-btn{
-    background-color: var(--dark_blue);
-    color: var(--light_blue);
+    background-color: var(--button_green);
+    color: var(--text-white);
     border-radius: 25px;
     opacity: 0.9;
 }
 
 .card .card-btn:hover{
-    background-color: var(--dark_blue);
-    color: var(--light_blue);
+    background-color: var(--button_green);
+    color: var(--text-white);
     opacity: 1;
 }
 
 /*  Journaling page  */
-
 .main-box{
     display: flex;
-    color: var(--dark_blue);
-    justify-content: center;
+    height: 85vh;
+    color: var(--text-white);
+    /* justify-content: space-between; */
 }
 
-.side-box{
-    width: 200px;
+
  
-}
-
 .journal-box{
      flex: 1;
-     /* border: 0.5px solid var(--dark_blue); */
-     justify-self: center;
+     display: flex;
+     justify-content: center;
+     border: 0.5px solid rgba(255, 255, 255, 0.306);
+     border-left: none;
+
 }
 
 .journal-box .inside-box{
-    margin: 1rem 5rem;
-    width: 80%;
-    border-radius: 15px;
-    background-color: var(--blue_overlay);
-    padding: 2rem;
-    height:auto;
-    justify-content: center;
-    align-self: center;
-}
-
-
-
-.inside-box .header{
-    height: 25px;
+    height: 350px;
+    padding: 1rem;
+    background-color: #24272b;
+    border-radius: 25px;
+    margin: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 0;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgb(32, 32, 32) ;
+
 }
+
 .journal-box .buttons{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .journal-box .journal-btn{
-    background-color: var(--dark_blue);
-    color: var(--light_blue);
+    background-color: var(--button_green);
+    color: var(--text-white);
     border-radius: 25px;
     opacity: 0.9;
 }
 .journal-box .journal-btn:hover{
-    background-color: var(--dark_blue);
-    color: var(--light_blue);
+    background-color: var(--button_green);
+    color: var(--text-white);
     opacity: 1;
 }
-
-/* Side Box  
 .side-box{
-    background-color: var(--lighter_blue);
-    border: 0.5px solid var(--dark_blue);
+    width: 200px;
+    background-color: var(--dark_black);
+    border: 1px solid rgba(255, 255, 255, 0.306);
 }
-
 .side-box .side-card{
     padding: 1rem 0;
     font-size: small;
@@ -244,34 +254,41 @@ footer{
 
 .side-card a{
     text-decoration: none;
-    color: var(--dark_blue);
+    color: var(--text-white);
     opacity: 0.8;
 }
 .side-card a:hover{
-    color: var(--light_blue);
+    color: var(--text-white);
 }
 
-/* .side-card a:hover{
+.side-card a:hover{
     width: 150px;
     height: 25px;
-    color: rgba(141, 255, 47, 0.801);
-} */
-/* .side-card .journal-list{
+    color: var(--text-white);
+}
+ .side-card .journal-list{
     padding-left: 1rem;
-    border: 0.5px solid var(--dark_blue);
+    border: 0.5px solid var(--overlay_grey);
 }
 .side-card .journal-list:hover{
     width: auto;
     margin: auto 0;
     height:fit-content;
-
-    background-color: var(--dark_blue);
+    background-color: var(--button_green);
     cursor: pointer;
-}  */
+} 
 
+.side-card .journal-list:focus{
+   background-color: #47a759; 
+}
+
+.journal-list:active {
+    background-color: lightblue; /* Change background color */
+    /* Add any other styles you want to apply when the journal-list is active */
+}
 
 /* addnew */
-.newJournal{
+/* .newJournal{
     min-height: 100vh;
 }
 
@@ -300,8 +317,8 @@ footer{
     z-index: 1;
     margin: 0 auto;
     /* max-width: 80%; */
-}
 
+/* 
 .message {
     margin-bottom: 10px;
     padding: 8px 12px;
@@ -342,14 +359,14 @@ footer{
 }
 .btn-send:hover {
     background-color: var(--blact);
-}
+} */ 
 
 /* new Form */
 .form-container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: var(--blue_overlay);
+    background-color: var(--overlay_grey);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -357,7 +374,7 @@ footer{
   .form-container h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: var(--dark_blue);
+    color: var(--text-white);
   }
   
   .form-container form {
@@ -367,13 +384,14 @@ footer{
   
   .form-container label {
     margin-bottom: 5px;
+    color: var(--text-white);
   }
   
   .form-container input, textarea {
     padding: 10px;
     margin-bottom: 10px;
-    background-color: var(--light_blue);
-    color: var(--dark_blue);
+    background-color: var(--dark_black);
+    color: var(--text-white);
     border: 1px solid #ccc;
     border-radius: 3px;
   }
@@ -394,14 +412,14 @@ footer{
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
-    background-color: var(--light_blue);
+    background-color: var(--dark_black);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
  .show-container h1 {
     text-align: center;
-    color: var(--dark_blue);
+    color: var(--text-white);
   }
   
   .card-container {
@@ -413,9 +431,9 @@ footer{
   .show-card {
     height: 200px;
     text-align: center;
-    color: var(--dark_blue);
+    color: var(--text-white);
     padding: 20px;
-    background-color:var(--blue_overlay);
+    background-color:var(--overlay_grey);
     border-radius: 15px;
   }
   
@@ -430,7 +448,7 @@ footer{
   .show-card {
   
     scrollbar-width:thin; 
-    scrollbar-color: var(--dark_blue) var(--blue_overlay);   
+    scrollbar-color: var(--dark_black) var(--overlay_grey);   
 
   }
   
@@ -452,4 +470,10 @@ footer{
 }
 
 
-  
+@media (max-width:600px) {
+    .side-box{
+        position: fixed;
+        left: -200px;
+        transition: all 0.3s linear;
+    }
+}

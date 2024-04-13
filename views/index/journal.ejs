@@ -1,51 +1,34 @@
 <%  layout("/layouts/boilerplate") %>
 
-<body >
-    <div class="main-box container ">
-        <!-- <div class="side-box">
-            <div class="side-card">
-                <p>date</p>
-                <div class="journal-list">
-                <a href="#"><span>Untitled</span> <br>
-                <span>date</span> </a>
-                </div>
-            </div>
-            <div class="side-card">
-                <p>date</p>
-                <div class="journal-list">
-                <a href="#"><span>Untitled</span><br>
-                <span>date</span> </a>
-                </div>
-            </div>
-            <div class="side-card">
-                <p>date</p>
-                <div class="journal-list"> 
-                <a href="#">
-                    <span>Untitled</span><br>
-                <span>date</span> </a>
-            </div>
-            </div>
-        </div> -->
-        <div class="journal-box col-10 ">
-            <div class="inside-box">
-                <div class="header">
-                    <h5>Start writing your thoughts</h5>  
-                </div>
-                <div class="description-box">
-                    <h5>Reflection Guide</h5>
-                    <p>
-                        Writing a journal involves regularly recording your thoughts, feelings, and experiences in a written format. Journals can serve various purposes, such as self-reflection, emotional processing, goal tracking, and memory preservation.</p>
-                    <div class="buttons">
 
-                     
-                        <a class=" btn journal-btn" href="/journal/new">Add New+</a>
-                    </div>
-                </div>
-            </div>
-          
-               
+            <div class="main-box ">
+                            <div class="side-box">
+                                <% for(let session of sessions) { %>
+                                <div class="side-card">
+                                    <p><%= session.date %></p>
+                                    <div class="journal-list">
+                                    <a href="#"> <h5>Title</h5>  </a>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
                 
-        </div>
-        
-</div>
-</body>
+                            <div class=" journal-box container">
+                                    <div class="inside-box col-md-8">
+                                        <div class="content">
+                                             <h5>Reflection Guide</h5>
+
+                                            <p>
+                                                Writing a journal involves regularly recording your thoughts, feelings, and experiences in a written format. Journals can serve various purposes, such as self-reflection, emotional processing, goal tracking, and memory preservation.
+                                            </p>
+                                        </div>
+                                       
+
+                                            <div class="buttons">
+                                                <a class="btn journal-btn" href="/aichat">Start Journal <i class="fa-solid fa-robot"></i></a>
+                                                <a class=" btn journal-btn" href="/journal/new">Add New+</a>
+                                            </div>
+                                    </div>
+                            </div>
+            </div>
+        </div>    

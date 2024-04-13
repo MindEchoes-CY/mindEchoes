@@ -13,7 +13,7 @@
 }
 
 .sec-1 .options {
-    margin: 2rem 2rem;
+    margin: 2rem 0;
     display: flex;
     justify-content: center; 
 }
@@ -35,32 +35,37 @@
   }
 
 /* chat ai styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-}
+
 
 .chat-container {
-    max-width: 400px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    /* margin-top: 2rem; */
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #060606;
-   
+    background-color:#3d3d3d;
 }
 
-.chat-header {
-    background-color: #2e2e2f;
+.chat-header h1{
     color: #fff;
     padding: 10px;
     text-align: center;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 2;
+}
+.chat-header p {
+    color: white;
+    opacity: 0.8;
+    text-align: center;
+    position: sticky;
+    top: 0; 
+    z-index: 2;
+
 }
 
 .chat-messages {
@@ -68,51 +73,67 @@ body {
     max-height: 300px;
     overflow-y: auto;
     color: white;
+    display: flex;
+    flex-direction: column;
+   
 }
 
 .message {
     padding: 5px 10px;
     margin-bottom: 5px;
     border-radius: 5px;
+    
 }
 
 .user-message {
-    background-color: #011e2a;
+    background-color: #1f5f16bf;
     float: right;
+    max-width: 80%;
+    align-self: flex-end;
+    justify-self: baseline;
 }
 
 .chatbot-message {
-    background-color: #3d3d3d;
+    background-color: #012e42de;
     float: left;
+    max-width: 80%;
+    align-self: baseline;
 }
 
 .chat-input {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-top: 1px solid #ccc;
-    background-color: #080b0e;
+
+   
 }
 
 .chat-input input {
     flex: 1;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc8d;
     border-radius: 5px;
     margin-right: 10px;
-    background-color: black;
+    background-color: #3d3d3d;
     color: white;
 }
 
+.chat-input input:focus {
+    border-color:#47a759; /* Change border color */
+    outline: none; /* Remove the default outline */
+    /* Add any other styles you want to apply when the input is focused */
+}
 .chat-input button {
-    padding: 8px 15px;
+    padding: 8px;
     border: none;
-    background-color: #3d3d3d;
+    background-color:#47a759;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    line-height:normal;
 }
 
 .chat-input button:hover {
-    background-color: #323232;
+    background-color:#47a759;
+
 }

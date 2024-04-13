@@ -5,7 +5,7 @@ app.use(express.json())
 
 const openai = new OpenAI({
   // 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
-    apiKey:""
+    apiKey:"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"
 })
 
 
@@ -15,7 +15,7 @@ async function generateResponse(message) {
     const response = await openai.chat.completions.create({
                 model:'gpt-3.5-turbo',
                 messages:[{"role":"user","content":message}],
-                max_tokens:64
+                max_tokens:100
             });
    
   
