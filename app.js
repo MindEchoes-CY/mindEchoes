@@ -19,6 +19,7 @@ const authRoutes = require("./routes/auth-routes");
 const CryptoJs = require("crypto-js");
 const wrapAsync = require("./utils/wrapAsync")
 // const cookieSession = require('cookie-session');
+const Conversation = require("./models/message");
 
 const bodyParser = require('body-parser');
 const chatgpt = require('./chatgpt');
@@ -124,13 +125,23 @@ app.get("/",(req,res)=>{
     res.render("index.ejs");
 })
 
-app.get("/journal",wrapAsync( async(req,res)=>{
+app.get("/journal", wrapAsync(async (req, res) => {
+    const user = res.locals.currUser.username;
+    const conversation = await Conversation.findOne({ user });
+    // console.log(conversation);
 
-    const journal = await Journal.findOne().sort({ "datetime": 1 });
-    console.log(journal);
+    if (!conversation) {
+        return res.render("index/journal.ejs", { journals: [] });
+    }
 
-    res.render("index/journal.ejs",{journal});
-}))
+    const sessions = conversation.sessions.map(session => {
+        return {
+            date: moment(session.date).format('DD-MM-YYYY'),
+            messages: session.messages,
+        };
+    });
+    res.render("index/journal.ejs",{sessions} );
+}));
 
 app.get("/journal/new",isLoggedin,(req,res)=>{
     res.render("journals/newForm.ejs");
@@ -263,41 +274,80 @@ app.use("/auth",authRoutes);
 // chat routes
 
 
-app.get("/aichat",async(req,res)=>{
-     let user = res.locals.currUser.username;
-    const message = await chatgpt.generateResponse(`Say hi to ${user} and from now you are jourling assistant of user`);
-   
+app.get("/aichat", async (req, res) => {
+    let user = res.locals.currUser.username;
 
-    res.render("./AiChat/chat.ejs",{ initialMessage: message } );
-})
+    // Generate the initial message for the new session
+    const message = await chatgpt.generateResponse(`Say hi to ${user} and from now you should act as journalling assistant`);
+
+    res.render("./AiChat/chat.ejs", { initialMessage: message });
+});
+
+
 
 app.post('/send-message', async (req, res) => {
     const userMessage = req.body.message;
-    console.log(userMessage);
-    // Process the user message here and generate a response
+    const user = res.locals.currUser.username;
+    const sessionId = req.sessionID;
+
+    // Find the conversation for the user
+    let conversation = await Conversation.findOne({ user });
+
+    // If no conversation exists, create a new one
+    if (!conversation) {
+        conversation = new Conversation({
+            user,
+            sessions: []
+        });
+    }
+
+    // Find the session in the conversation
+    let session = conversation.sessions.find(s => s.sessionId === sessionId);
+
+    // If the session doesn't exist, create a new one
+    if (!session) {
+        session = {
+            sessionId,
+            messages: []
+        };
+        conversation.sessions.push(session);
+    }
+
+    // Add the user's message to the session
+    session.messages.push({
+        sender: user,
+        content: userMessage
+    });
+
+    // Process the user message and generate a response
     const chatbotResponse = await chatgpt.generateResponse(userMessage);
-    console.log(chatbotResponse);
+    session.messages.push({
+        sender: 'chatBot',
+        content: chatbotResponse
+    });
+
+    // Save the conversation
+    await conversation.save();
+
     res.json({ message: chatbotResponse });
 });
 
-app.use(bodyParser.json());
+// app.get('/send-message', async (req, res) => {
+//   // Initial message from the bot
+//   const message = await chatgpt.generateResponse('say hi to user and from now you are journaling ');
+//   res.render({ message });
+// });
 
-app.get('/send-message', async (req, res) => {
-  // Initial message from the bot
-  const message = await chatgpt.generateResponse('say hi to user and from now you are journaling ');
-  res.render({ message });
-});
+// app.post('/send-message', async (req, res) => {
+//   const userMessage = req.body.message;
+//   // Save user message to MongoDB
+// //   const chatMessage = new ChatMessage({ message: userMessage });
+// //   await chatMessage.save();
 
-app.post('/send-message', async (req, res) => {
-  const userMessage = req.body.message;
-  // Save user message to MongoDB
-//   const chatMessage = new ChatMessage({ message: userMessage });
-//   await chatMessage.save();
-
-  // Get response from ChatGPT based on user message
-  const botResponse = await chatgpt.generateResponse(userMessage);
-  res.send({ message: botResponse });
-});
+//   // Get response from ChatGPT based on user message
+//   const botResponse = await chatgpt.generateResponse(userMessage);
+//   res.send({ message: botResponse });
+// });
 
 
 app.all("*",(req,res,next)=>{
