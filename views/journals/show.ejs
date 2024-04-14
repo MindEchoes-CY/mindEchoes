@@ -5,7 +5,7 @@
     <div class="show-container col-8">
       <h1>Journal Entries</h1>
       <div class="card-container ">
-        <% for(let journal of allJournals) {%>
+        <% for(let journal of decryptedJournals) {%>
         <div class="show-card overflow-y-auto">
           <h2><%= journal.title %></h2>
           <p><%= journal.message %></p>

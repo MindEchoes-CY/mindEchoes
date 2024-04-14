@@ -1,3 +1,28 @@
+:root {
+    
+   
+
+    /* 
+        --lighter_blue:#171918;
+        --light_blue:#1b1d1c;
+        --blue_overlay:#24272b;
+        --dark_blue: white;
+        --dark_grey:white
+        --white:#fff;
+        --blact: black; */
+    
+        --dark_black:  #171918    ;
+        --dark_grey: #1b1d1c     ;
+        --overlay_grey:  #24272b     ;
+        --button_green:  #47a759   ;
+        --text-white:   #dbdcdc    ;
+    
+    
+    }
+
+
+
+
 .front-page{
     min-height: 150vh;
 }
@@ -13,7 +38,7 @@
 }
 
 .sec-1 .options {
-    margin: 2rem 2rem;
+    margin: 2rem 0;
     display: flex;
     justify-content: center; 
 }
@@ -33,3 +58,166 @@
     border-radius: 50%;
     margin-right: 0.5rem;
   }
+
+/* chat ai styling */
+
+
+.chat-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    /* margin-top: 2rem; */
+    border-radius: 10px;
+    /* overflow: hidden; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color:#3d3d3d;
+}
+
+.chat-header h1{
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.chat-header p {
+    color: white;
+    opacity: 0.8;
+    text-align: center;
+    position: sticky;
+    top: 0; 
+    z-index: 2;
+
+}
+
+.chat-messages {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    color: white;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.message {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    
+}
+
+.user-message {
+    background-color: #1f5f16bf;
+    float: right;
+    max-width: 80%;
+    align-self: flex-end;
+    justify-self: baseline;
+}
+
+.chatbot-message {
+    background-color: #012e42de;
+    float: left;
+    max-width: 80%;
+    align-self: baseline;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+   
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #cccccc8d;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #3d3d3d;
+    color: white;
+}
+
+.chat-input input:focus {
+    border-color:#47a759; /* Change border color */
+    outline: none; /* Remove the default outline */
+    /* Add any other styles you want to apply when the input is focused */
+}
+.chat-input button {
+    padding: 8px;
+    border: none;
+    background-color:#47a759;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    line-height:normal;
+}
+
+.chat-input button:hover {
+    background-color:#47a759;
+
+}
+
+/* OnBoarding CSS */
+.onBoardingPage{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--dark_grey) ;
+}
+
+.QuesBox{
+    height: fit-content;
+    padding: 1rem;
+    background-color: var(--overlay_grey);
+    border-radius: 25px;
+    color: var(--text-white);
+}
+
+.bording-btns{
+    display: flex;
+    justify-content: flex-end;
+}
+.bording-btns .button{
+    margin: 5px;
+    border-radius: 20px;
+
+}
+
+.QuesBox .option{
+    background-color: var(--dark_grey);
+    padding: 1rem;
+    border-radius: 25px;
+}
+.option input[type=checkbox]{
+    display: none;
+  }
+  
+
+
+.option label{
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    margin: 0 1rem;
+    font-size: large;
+    font-weight: 500;
+    border-radius: 3px;
+}
+
+.option input[type=checkbox]:checked + label:before {
+    content: "\2713";
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    font-size: 25px;
+    color: var(--button_green);
+    text-align: center;
+    line-height: 12px;
+    margin-right: 20px;
+
+  }
+
