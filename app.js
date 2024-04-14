@@ -25,6 +25,7 @@ const bodyParser = require('body-parser');
 const chatgpt = require('./chatgpt');
 
 
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
 // app.use(cookieSession({
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(methodOverride("_method"));
 app.use(flash());
 app.use(bodyParser.json());
+
 
 const moment = require('moment');
 const FormattedDate1 = moment().format('dddd, MMM D');
@@ -106,14 +108,6 @@ let isLoggedin = (req,res,next)=>{
       }
       next();
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -260,7 +254,7 @@ app.post("/signup",wrapAsync(async (req,res)=>{
             return next(err);
         }
         req.flash("success","welcome to MindEchoes");
-        res.redirect("/home");
+        res.redirect("/onBoarding");
        })
        
     } catch(e){
@@ -272,6 +266,16 @@ app.post("/signup",wrapAsync(async (req,res)=>{
 app.use("/auth",authRoutes);
 
 // chat routes
+
+app.get("/onboarding",(req,res)=>{
+    res.render("./AiChat/onBoarding");
+})
+
+app.post('/onBoarding', (req, res) => {
+    const selectedChoices = req.body;
+    console.log(selectedChoices);
+    res.json({ message: 'Data received successfully' });
+});
 
 
 app.get("/aichat", async (req, res) => {

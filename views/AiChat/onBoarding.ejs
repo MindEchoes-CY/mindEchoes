@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="./favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/favicon_io/favicon.ico" type="image/x-icon">
+    <title>Onboarding-MindEchoes</title>
+    <!-- Custom css -->
+    <link rel="stylesheet" href="/CSS/style1.css">
+    
+    <!-- BootStrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- google fonts   -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- font awesome links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="onBoardingPage">
+    <div class="container">
+        <div class="row mt-3 p-3 justify-content-center">
+            <div class="col-md-8 QuesBox" id="mcq-form">
+                <h2 class="mcq-question" id="question"></h2>
+                <p>Select all that apply:</p>
+                <form id="mcq-choices">
+                    <!-- MCQ choices will be added dynamically here -->
+                </form>
+                <div class="bording-btns">
+                    <button class="btn btn-outline-light button"  id="back-btn">back</button>
+                    <button class=" btn btn-outline-success button" id="next-btn">Next</button>
+                <button class="btn btn-success button" id="submit-btn" style="display: none;">Submit</button>
+                 </div>   
+            </div>
+        </div>
+    </div>
+    
+    <script src="/JS/onBording.js"></script>
+</body>

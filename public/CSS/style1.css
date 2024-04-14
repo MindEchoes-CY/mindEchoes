@@ -1,3 +1,28 @@
+:root {
+    
+   
+
+    /* 
+        --lighter_blue:#171918;
+        --light_blue:#1b1d1c;
+        --blue_overlay:#24272b;
+        --dark_blue: white;
+        --dark_grey:white
+        --white:#fff;
+        --blact: black; */
+    
+        --dark_black:  #171918    ;
+        --dark_grey: #1b1d1c     ;
+        --overlay_grey:  #24272b     ;
+        --button_green:  #47a759   ;
+        --text-white:   #dbdcdc    ;
+    
+    
+    }
+
+
+
+
 .front-page{
     min-height: 150vh;
 }
@@ -137,3 +162,62 @@
     background-color:#47a759;
 
 }
+
+/* OnBoarding CSS */
+.onBoardingPage{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--dark_grey) ;
+}
+
+.QuesBox{
+    height: fit-content;
+    padding: 1rem;
+    background-color: var(--overlay_grey);
+    border-radius: 25px;
+    color: var(--text-white);
+}
+
+.bording-btns{
+    display: flex;
+    justify-content: flex-end;
+}
+.bording-btns .button{
+    margin: 5px;
+    border-radius: 20px;
+
+}
+
+.QuesBox .option{
+    background-color: var(--dark_grey);
+    padding: 1rem;
+    border-radius: 25px;
+}
+.option input[type=checkbox]{
+    display: none;
+  }
+  
+
+
+.option label{
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    margin: 0 1rem;
+    font-size: large;
+    font-weight: 500;
+    border-radius: 3px;
+}
+
+.option input[type=checkbox]:checked + label:before {
+    content: "\2713";
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    font-size: 25px;
+    color: var(--button_green);
+    text-align: center;
+    line-height: 12px;
+    margin-right: 20px;
+
+  }
+
