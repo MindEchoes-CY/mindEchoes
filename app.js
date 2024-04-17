@@ -122,11 +122,6 @@ app.get("/",(req,res)=>{
 app.get("/journal", wrapAsync(async (req, res) => {
     const user = res.locals.currUser.username;
     const conversation = await Conversation.findOne({ user });
-    // console.log(conversation);
-
-    if (!conversation) {
-        return res.render("index/journal.ejs", { journals: [] });
-    }
 
     const sessions = conversation.sessions.map(session => {
         return {
@@ -134,8 +129,10 @@ app.get("/journal", wrapAsync(async (req, res) => {
             messages: session.messages,
         };
     });
-    res.render("index/journal.ejs",{sessions} );
+
+    res.render("index/journal.ejs", { sessions });
 }));
+
 
 app.get("/journal/new",isLoggedin,(req,res)=>{
     res.render("journals/newForm.ejs");
@@ -149,7 +146,6 @@ app.post("/journal/new",wrapAsync(async(req,res)=>{
         const newJournal = new Journal({title:encryptedTitle,message:encryptedMess});
     
         newJournal.owner = res.locals.currUser._id;
-        console.log(newJournal);
         await newJournal.save();
         req.flash("success","Your journal entry has been added successfully!");
         res.redirect("/home"); 
@@ -183,7 +179,6 @@ try {
         return decryptedJournal;
     });
 
-    console.log(decryptedJournals);
     res.render("journals/show.ejs", {decryptedJournals});
 
 } catch (err) {
@@ -207,7 +202,7 @@ app.get("/myJournals/:id/edit",isLoggedin, wrapAsync(async(req,res)=>{
     
         journal.title = decryptedTitle;
         journal.message = decryptedMessage;
-        console.log(journal);
+       
     
         res.render("journals/edit.ejs", { journal });
     } catch (err) {
@@ -232,38 +227,15 @@ app.put("/myJournals/:id/update",wrapAsync( async(req,res)=>{
 app.delete("/myJournals/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let deletedJournal = await Journal.findByIdAndDelete(id);
-    console.log(deletedJournal);
+    
     res.redirect("/myJournals");
 }))
 
 
 // authentication routes
 
-app.get("/signup",(req,res)=>{
-    res.render("user/signup.ejs");
-})
-
-app.post("/signup",wrapAsync(async (req,res)=>{
-    try{
-        let{username,email,password} = req.body;
-        const newUser = new User({email,username});
-        const registeredUser = await User.register(newUser,password);
-        console.log(registeredUser);
-        req.login(registeredUser,(err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash("success","welcome to MindEchoes");
-        res.redirect("/onBoarding");
-       })
-       
-    } catch(e){
-        req.flash("error",e.message);
-        res.redirect("/signup");
-    }
-}))
-
 app.use("/auth",authRoutes);
+
 
 // chat routes
 
@@ -273,7 +245,7 @@ app.get("/onboarding",(req,res)=>{
 
 app.post('/onBoarding', (req, res) => {
     const selectedChoices = req.body;
-    console.log(selectedChoices);
+    
     res.json({ message: 'Data received successfully' });
 });
 

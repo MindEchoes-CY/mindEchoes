@@ -7,24 +7,12 @@
 
 :root {
     
-   
-
-/* 
-    --lighter_blue:#171918;
-    --light_blue:#1b1d1c;
-    --blue_overlay:#24272b;
-    --dark_blue: white;
-    --dark_grey:white
-    --white:#fff;
-    --blact: black; */
-
     --dark_black:  #171918    ;
     --dark_grey: #1b1d1c     ;
     --overlay_grey:  #24272b     ;
     --button_green:  #47a759   ;
     --text-white:   #dbdcdc    ;
-
-
+    
 }
 
 body{
@@ -56,6 +44,14 @@ body{
     padding: 0;
     color: var(--text-white);
     /* margin: 0; */
+}
+
+.navbar-toggler{
+    padding: 2px !important;
+}
+.navbar-toggler-icon{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
 }
 
 .navbar .navbar-brand:hover{
@@ -199,16 +195,17 @@ footer{
 
  
 .journal-box{
+    
      flex: 1;
      display: flex;
      justify-content: center;
      border: 0.5px solid rgba(255, 255, 255, 0.306);
      border-left: none;
-
+     overflow-y: scroll;
 }
 
 .journal-box .inside-box{
-    height: 350px;
+    height: fit-content ;
     padding: 1rem;
     background-color: #24272b;
     border-radius: 25px;
@@ -223,6 +220,7 @@ footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
 }
 
 .journal-box .journal-btn{
@@ -230,6 +228,8 @@ footer{
     color: var(--text-white);
     border-radius: 25px;
     opacity: 0.9;
+    size-adjust:inherit;
+    margin-top: 5px;
 }
 .journal-box .journal-btn:hover{
     background-color: var(--button_green);
@@ -238,7 +238,7 @@ footer{
 }
 .side-box{
     width: 200px;
-    background-color: var(--dark_black);
+    background-color: var(--dark_black) !important;
     border: 1px solid rgba(255, 255, 255, 0.306);
 }
 .side-box .side-card{
@@ -363,47 +363,55 @@ footer{
 
 /* new Form */
 .form-container {
+    backdrop-filter: blur(10px); /* Apply a blur effect to simulate frosted glass */
+    background: linear-gradient(135deg , rgba(255,255,255,0.1), rgba(255,255,255,0));
+    height: 80vh;
     max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: var(--overlay_grey);
+    margin: 1rem 1rem;
+    padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
-  .form-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--text-white);
-  }
-  
+
   .form-container form {
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
   
-  .form-container label {
-    margin-bottom: 5px;
-    color: var(--text-white);
-  }
+  
   
   .form-container input, textarea {
-    padding: 10px;
     margin-bottom: 10px;
-    background-color: var(--dark_black);
+    background-color: transparent;
     color: var(--text-white);
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    font-family: "Pacifico", "cursive";
+    font-weight: 400;
+    border: none;
+    letter-spacing: 3px;
+  }
+  .form-container input, textarea:focus{
+    border: none;
+    outline: none;
+    font-size: larger;
+    resize: none;
+  }
+  .form-container input{
+
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.361);
   }
 
   .form-container textarea {
-    resize: vertical; /* Allow vertical resizing of textarea */
+    resize: none;
+    font-family: "Pacifico", cursive;
+    font-size: smaller;
   }
 
   .form-btn{
-    display: flex;
-    justify-content: end;
-    margin-top: 1rem;
+    justify-self:end;
+    align-self: flex-end;
+    margin-top: auto;
   }
   
  
@@ -470,10 +478,10 @@ footer{
 }
 
 
-@media (max-width:600px) {
+/* @media (max-width:600px) {
     .side-box{
         position: fixed;
         left: -200px;
         transition: all 0.3s linear;
     }
-}
+} */
