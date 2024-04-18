@@ -98,17 +98,19 @@ footer{
 }
 .footer1{
     background-color: var(--dark_black);
-    color: var(--button_green);
+    
     display: flex;
     justify-content: center;
     align-content: center;
 
 }
-.footer1 p{
+.footer1 a{
     font-size:medium;
     font-weight: 500;
     padding: 0.5rem;
     margin: 0 !important;
+    text-decoration: none;
+    color: var(--button_green);
     
 }
 .footer{
