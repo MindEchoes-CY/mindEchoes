@@ -111,8 +111,10 @@ let isLoggedin = (req,res,next)=>{
 
 
 
-app.get("/home",isLoggedin,(req,res)=>{
-    res.render("index/home.ejs",{FormattedDate1});
+app.get("/home",isLoggedin, async(req,res)=>{
+    const newQue = await chatgpt.generateResponse("give one question for journaling");
+    const quote = await chatgpt.generateResponse("Give a single quote");
+    res.render("index/home.ejs",{FormattedDate1,newQue,quote});
 })
 
 app.get("/",(req,res)=>{
