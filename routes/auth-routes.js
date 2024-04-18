@@ -84,7 +84,8 @@ router.get('/google',passport.authenticate('google',{
 
 router.get("/google/redirect",passport.authenticate('google'),(req,res)=>{
     if(newAccount){
-        res.redirect("/onBoarding"); // Redirect to onBoarding for new users
+        res.redirect("/onBoarding");
+        newAccount = false;
     } else {
         res.redirect("/home"); // Redirect to home for existing users
     }

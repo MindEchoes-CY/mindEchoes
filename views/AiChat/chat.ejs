@@ -42,7 +42,12 @@
         <div class="container">
             <div class="col-md-8 offset-md-2 chat-container" id="chat-container">
                 <div class="chat-header">
-                    <h1><%= user.style %></h1>
+                    <% if(user.style){ %>
+                        <h1><%= user.style %></h1>
+                  <% } else { %>
+                    <h1>Reflection Guide</h1>
+
+                    <% } %>
                     <p>Your go-to for deep talks and self-discovery. Think of a journaling buddy who's all about understanding your inner world.</p>
                     
                 </div>
