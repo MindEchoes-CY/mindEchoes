@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "v16.16.0"
+    "node": "16.16.0"
   },
   "name": "mindechoes",
   "version": "1.0.0",

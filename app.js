@@ -30,10 +30,7 @@ const chatgpt = require('./chatgpt');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
-// app.use(cookieSession({
-//     maxAge: 24*60*60*1000,
-//     keys:["sfgfgdfgsdgdsf"]
-// }));
+
 const key = process.env.ENC_DEC_KEY;
 
 app.use(express.urlencoded({extended:true}));
@@ -109,7 +106,7 @@ let isLoggedin = (req,res,next)=>{
         req.session.requiredUrl = req.originalUrl;
        return res.redirect("/auth/login");
       }
-      next();
+    next();
 }
 
 
@@ -127,20 +124,6 @@ app.get("/",(req,res)=>{
 
 app.get("/journal", wrapAsync(async (req, res) => {
     const user = res.locals.currUser.username;
-    // const conversation = await Conversation.findOne({ user });
-
-    // if (!conversation) {
-    //     return res.render("index/journal.ejs", { sessions: [] });
-    // }
-
-
-    // const sessions = conversation.sessions.map(session => {
-    //     return {
-    //         date: moment(session.date).format('DD-MM-YYYY'),
-    //         messages: session.messages,
-    //     };
-    // });
-
     res.render("index/journal.ejs", { FormattedDate1 });
 }));
 
