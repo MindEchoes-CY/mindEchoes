@@ -1,11 +1,12 @@
+require('dotenv').config();
 const express = require("express")  
 const OpenAI = require("openai")
 const app = express();
 app.use(express.json()) 
 
 const openai = new OpenAI({
-  // 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
-    apiKey:"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"
+  
+    apiKey:process.env.GPT_API_KEY
 })
 
 
