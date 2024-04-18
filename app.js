@@ -85,7 +85,7 @@ app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error   = req.flash("error");
     res.locals.currUser = req.user;
-    
+
     next();
   })
 
@@ -267,7 +267,12 @@ app.post('/onBoarding', async(req, res) => {
 app.get("/aichat", async (req, res) => {
     let id = res.locals.currUser.id;
     const user = await User.findById(id);
-    const initialmsg = await chatgpt.generateResponse(`say hello to ${user.username} and from now you have to behave like ${user.style} to help in journaling`);
+    let initialmsg;
+    if(user.style){
+         initialmsg = await chatgpt.generateResponse(`say hello to ${user.username} and from now you have to behave like ${user.style} to help in journaling`);
+    }else{
+         initialmsg = await chatgpt.generateResponse(`say hello to ${user.username} and from now you have to help in journaling`);
+    }
     res.render("./AiChat/chat.ejs", { user,initialmsg });
 });
 
