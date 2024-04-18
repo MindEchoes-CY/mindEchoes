@@ -30,7 +30,6 @@ function displayQuestion() {
     choicesForm.innerHTML = "";
     current.choices.forEach((choice, index) => {
         const p = document.createElement('p');
-        p.innerText = "Select all that apply:"
         const input = document.createElement("input");
         input.type = "checkbox";
         input.value = index;

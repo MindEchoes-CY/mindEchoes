@@ -2,19 +2,34 @@
 
 <body>
   <div class="row"></div>
-    <div class="show-container col-8">
+    <div class="show-container col-md-8">
       <h1>Journal Entries</h1>
       <div class="card-container ">
         <% for(let journal of decryptedJournals) {%>
-        <div class="show-card overflow-y-auto">
-          <h2><%= journal.title %></h2>
-          <p><%= journal.message %></p>
-          <div class="buttons">
-            <a class="btn btn-outline-light" href="/myJournals/<%= journal._id %>/edit">Edit</a>
-            <form method="post" action="/myJournals/<%= journal._id %>?_method=DELETE">
-              <button class="btn btn-outline-light">Delete</button>
-            </form>
+        
+        <div class="show-card ">
+          <div class="heading btn-group">
+            <h2><%= journal.title %></h2>
+            <a class="button btn-dark" style="color: white;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </a>
+            <ul class="dropdown-menu menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/myJournals/<%= journal._id %>/edit">Edit</a></li>
+                <li>
+                    <form method="post" action="/myJournals/<%= journal._id %>?_method=DELETE">
+                        <button class="dropdown-item">Delete</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        
+          
+          
+          
+          <div class="entry_msg overflow-y-auto">
+            <p><%= journal.message %></p>
           </div>
+          
         </div>
        <% } %>
       </div>

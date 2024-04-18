@@ -17,7 +17,9 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const authRoutes = require("./routes/auth-routes");
 const CryptoJs = require("crypto-js");
-const wrapAsync = require("./utils/wrapAsync")
+const wrapAsync = require("./utils/wrapAsync");
+const ExpressError = require("./utils/expressError.js");
+
 // const cookieSession = require('cookie-session');
 const Conversation = require("./models/message");
 
@@ -83,6 +85,7 @@ app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error   = req.flash("error");
     res.locals.currUser = req.user;
+    
     next();
   })
 
@@ -111,6 +114,7 @@ let isLoggedin = (req,res,next)=>{
 
 
 
+
 app.get("/home",isLoggedin, async(req,res)=>{
     const newQue = await chatgpt.generateResponse("give one question for journaling");
     const quote = await chatgpt.generateResponse("Give a single quote");
@@ -123,16 +127,21 @@ app.get("/",(req,res)=>{
 
 app.get("/journal", wrapAsync(async (req, res) => {
     const user = res.locals.currUser.username;
-    const conversation = await Conversation.findOne({ user });
+    // const conversation = await Conversation.findOne({ user });
 
-    const sessions = conversation.sessions.map(session => {
-        return {
-            date: moment(session.date).format('DD-MM-YYYY'),
-            messages: session.messages,
-        };
-    });
+    // if (!conversation) {
+    //     return res.render("index/journal.ejs", { sessions: [] });
+    // }
 
-    res.render("index/journal.ejs", { sessions });
+
+    // const sessions = conversation.sessions.map(session => {
+    //     return {
+    //         date: moment(session.date).format('DD-MM-YYYY'),
+    //         messages: session.messages,
+    //     };
+    // });
+
+    res.render("index/journal.ejs", { FormattedDate1 });
 }));
 
 
@@ -150,10 +159,10 @@ app.post("/journal/new",wrapAsync(async(req,res)=>{
         newJournal.owner = res.locals.currUser._id;
         await newJournal.save();
         req.flash("success","Your journal entry has been added successfully!");
-        res.redirect("/home"); 
+        res.redirect("/journal/new"); 
     }catch(err){
         req.flash("error","Some error occured please try again later!");
-        res.redirect("/home");
+        res.redirect("/journal/new");
     }
      
 }))
@@ -245,20 +254,21 @@ app.get("/onboarding",(req,res)=>{
     res.render("./AiChat/onBoarding");
 })
 
-app.post('/onBoarding', (req, res) => {
+app.post('/onBoarding', async(req, res) => {
     const selectedChoices = req.body;
-    
+    const id = res.locals.currUser._id;
+    const user = await User.findById(id);
+    user.style = selectedChoices[2][0].text;
+    await user.save();
     res.json({ message: 'Data received successfully' });
 });
 
 
 app.get("/aichat", async (req, res) => {
-    let user = res.locals.currUser.username;
-
-    // Generate the initial message for the new session
-    const message = await chatgpt.generateResponse(`Say hi to ${user} and from now you should act as journalling assistant`);
-
-    res.render("./AiChat/chat.ejs", { initialMessage: message });
+    let id = res.locals.currUser.id;
+    const user = await User.findById(id);
+    const initialmsg = await chatgpt.generateResponse(`say hello to ${user.username} and from now you have to behave like ${user.style} to help in journaling`);
+    res.render("./AiChat/chat.ejs", { user,initialmsg });
 });
 
 
@@ -329,9 +339,15 @@ app.post('/send-message', async (req, res) => {
 
 
 app.all("*",(req,res,next)=>{
-    res.send("Page Not Found 404!");
+    next(new ExpressError(404,"Page not found"));
 })
 
+app.use((err,req,res,next)=>{ 
+
+    let{status = 500, message = "Something went wrong"} = err;
+    res.status(status).render("error.ejs",{message});
+  })
+  
 app.listen(port,()=>{
     console.log(`Server is listening on port ${port}`);
 })

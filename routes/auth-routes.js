@@ -16,7 +16,7 @@ passport.deserializeUser((id,done)=>{
    
 });
 
-
+let newAccount = false;
 
 passport.use(
     new GoogleStrategy({
@@ -37,6 +37,7 @@ passport.use(
                 googleId:profile.id
             }).save().then((newUser)=>{
                 console.log("new User created:" + newUser);
+                newAccount = true;
                 done(null,newUser);
             });
         }
@@ -60,7 +61,7 @@ router.post("/signup",wrapAsync(async (req,res)=>{
        
     } catch(e){
         req.flash("error",e.message);
-        res.redirect("/signup");
+        res.redirect("/auth/login");
     }
 }))
 
@@ -71,7 +72,7 @@ router.get("/login",(req,res)=>{
     res.render("user/login.ejs");
 })
 
-router.post("/login",passport.authenticate("local",{failureRedirect:"/login"}),(req,res)=>{
+router.post("/login",passport.authenticate("local",{failureRedirect:"/auth/login",failureFlash:true}),(req,res)=>{
     req.flash("success","Welcome to MindEchoes");
     res.redirect("/home");
 })
@@ -82,7 +83,11 @@ router.get('/google',passport.authenticate('google',{
 
 
 router.get("/google/redirect",passport.authenticate('google'),(req,res)=>{
-    res.redirect("/home");
+    if(newAccount){
+        res.redirect("/onBoarding"); // Redirect to onBoarding for new users
+    } else {
+        res.redirect("/home"); // Redirect to home for existing users
+    }
 })
 
 

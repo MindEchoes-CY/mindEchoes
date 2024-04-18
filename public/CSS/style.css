@@ -199,7 +199,6 @@ footer{
      flex: 1;
      display: flex;
      justify-content: center;
-     border: 0.5px solid rgba(255, 255, 255, 0.306);
      border-left: none;
      overflow-y: scroll;
 }
@@ -421,36 +420,48 @@ footer{
     margin: 50px auto;
     padding: 20px;
     background-color: var(--dark_black);
-    border-radius: 5px;
+    border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+  
+
   
  .show-container h1 {
     text-align: center;
     color: var(--text-white);
+    font-family: "Pacifico", "cursive";
   }
   
-  .card-container {
+  /* .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 20px;
-  }
+  } */
   
   .show-card {
-    height: 200px;
-    text-align: center;
+    height: 150px;
+    margin-top: 1rem;
     color: var(--text-white);
     padding: 20px;
     background-color:var(--overlay_grey);
     border-radius: 15px;
+    overflow-y: scroll;
   }
-  
-  .buttons {
-    margin-top: 10px;
+  .dropdown-item:hover{
+    background-color: #24272b !important;
+  }
+
+  .show-card h2{
+    display: inline;
+    right: 0;
+    
+  }
+
+  .show-card .heading{
     display: flex;
     justify-content: space-between;
-    align-content: end;
   }
+ 
 
   /* Scroll bar css */
   .show-card {
@@ -459,7 +470,26 @@ footer{
     scrollbar-color: var(--dark_black) var(--overlay_grey);   
 
   }
-  
+.button{
+    padding: 0 5px;
+    opacity: 0.7;
+}
+
+.button:hover{
+    padding: 0 5px;
+    opacity: 1;
+}
+
+.menu{
+    background-color: #24272b !important;
+    justify-content: end;
+    width: fit-content !important;
+  }
+.dropdown-item{
+    color: white !important;
+    margin-left: auto;
+    text-align: end !important;
+}  
   
   ::-webkit-scrollbar{
     width: 5px;
@@ -478,10 +508,13 @@ footer{
 }
 
 
-/* @media (max-width:600px) {
+@media (max-width:600px) {
     .side-box{
         position: fixed;
         left: -200px;
         transition: all 0.3s linear;
     }
-} */
+    .show-container{
+        margin: 1rem;
+    }
+}

@@ -40,16 +40,15 @@
                       </nav>
                
         <div class="container">
-            <div class="col-md-8 offset-md-2 chat-container">
+            <div class="col-md-8 offset-md-2 chat-container" id="chat-container">
                 <div class="chat-header">
-                    <h1>Reflection Guide</h1>
+                    <h1><%= user.style %></h1>
                     <p>Your go-to for deep talks and self-discovery. Think of a journaling buddy who's all about understanding your inner world.</p>
+                    
                 </div>
                 <div class="chat-messages" id="chat-messages">
                     <!-- Messages will be appended here -->
-                    <% if (initialMessage) { %>
-                        <div class="message chatbot-message"><%= initialMessage %></div>
-                    <% } %>
+                    <div class="message chatbot-message"><%= initialmsg %></div>
                 </div>
             </div>
             <div class="col-md-8 offset-md-2 chat-input">
@@ -62,28 +61,38 @@
 
        
 
-        $(document).ready(function () {
-            $('#send-btn').click(function () {
-                var userInput = $('#user-input').val();
-                $('#chat-messages').append('<div class="message user-message">' + userInput + '</div>');
-                $('#user-input').val('');
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('send-btn').addEventListener('click', function() {
+        var userInput = document.getElementById('user-input').value;
+        document.getElementById('chat-messages').innerHTML += '<div class="message user-message">' + userInput + '</div>';
+        document.getElementById('user-input').value = '';
 
-                // Send the user message to the server
-                $.ajax({
-                    url: '/send-message',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ message: userInput }),
-                    success: function (response) {
-                        var chatbotResponse = response.message;
-                        $('#chat-messages').append('<div class="message chatbot-message">' + chatbotResponse + '</div></div> <br></br>');
-                    },
-                    error: function () {
-                        $('#chat-messages').append('<div class="message chatbot-message">Error processing message</div>');
-                    }
-                });
-            });
-        });
+        // Send the user message to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/send-message', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var chatbotResponse = response.message;
+                    document.getElementById('chat-messages').innerHTML += '<div class="message chatbot-message">' + chatbotResponse + '</div>';
+                    scrollToBottom();
+                } else {
+                    document.getElementById('chat-messages').innerHTML += '<div class="message chatbot-message">Error processing message</div>';
+                    scrollToBottom();
+                }
+            }
+        };
+        xhr.send(JSON.stringify({ message: userInput }));
+    });
+});
+
+function scrollToBottom() {
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
     </script>
 </body>
 </html>

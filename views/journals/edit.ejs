@@ -1,15 +1,12 @@
 <% layout("layouts/boilerplate") %>
 
 <body>
-    <div class="form-container">
-      <h1>Edit Journal</h1>
+  <div class="form-container ms-md-auto me-md-auto">
       <form  method="post" action="/myJournals/<%= journal._id %>/update?_method=PUT">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="<%=journal.title %>" required>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="5" required><%= journal.message %></textarea>
+        <input type="text" id="title" name="title" placeholder="Title" value="<%=journal.title %>" required>
+        <textarea id="message" placeholder="write..." name="message" rows="17" required><%= journal.message %></textarea>
         <div class="form-btn">
-          <button class="btn btn-success" type="submit">Edit</button>
+          <button class="btn btn-dark" type="submit">Edit</button>
         </div>
       </form>
     </div>
