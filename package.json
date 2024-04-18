@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v16.16.0"
+  },
   "name": "mindechoes",
   "version": "1.0.0",
   "description": "It is a AI Journalling Website",
